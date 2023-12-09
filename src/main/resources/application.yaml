@@ -1,0 +1,7 @@
+wechat:
+  agent-id: ${AGENT_ID:}
+  corp-id: ${CORP_ID:}
+  corp-secret: ${CORP_SECRET:}
+qw-push:
+  security:
+    auth-key: ${AUTH_KEY:}

@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'org.graalvm.buildtools.native' version '0.9.28'
+}
+
+group = 'net.dengzixu'
+version = '0.0.1-SNAPSHOT'
+
+graalvmNative {
+    binaries {
+        main {
+//            buildArgs.add("-O4")
+//            buildArgs.add("--static")
+        }
+    }
+}
+
+java {
+    sourceCompatibility = '21'
+}
+
+repositories {
+    mavenCentral() {
+        url 'https://mirrors.huaweicloud.com/repository/maven/'
+    }
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+    }
+    implementation('org.springframework.boot:spring-boot-starter-undertow') {
+        exclude group: 'io.undertow', module: 'undertow-websockets-jsr'
+    }
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+
+    // https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+
+    // https://mvnrepository.com/artifact/commons-codec/commons-codec
+    implementation 'commons-codec:commons-codec:1.16.0'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
