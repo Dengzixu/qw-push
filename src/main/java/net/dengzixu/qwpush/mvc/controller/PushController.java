@@ -21,14 +21,18 @@ public class PushController {
     public ResponseEntity<String> push(@PathVariable String authKey,
                                        @PathVariable String messageContent,
                                        @PathVariable String messageType,
-                                       @RequestParam(required = false, defaultValue = "false") boolean base64) {
+                                       @RequestParam(required = false, defaultValue = "false") boolean base64,
+                                       @RequestParam(required = false, defaultValue = "false") boolean debug) {
+
 
         if (base64) {
             messageContent = new String(Base64.decodeBase64(messageContent));
         }
 
 
-//        pushService.push(messageType, messageContent);
+        if (!debug){
+            pushService.push(messageType, messageContent);
+        }
 
         return ResponseEntity.ok("success");
     }
